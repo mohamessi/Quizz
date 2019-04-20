@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizzService } from '../../services/quizz.service';
 import { Question } from '../../models/question';
+import { FormBuilder, Validators } from "@angular/forms";
+
 
 @Component({
   selector: 'app-fast',
@@ -11,10 +13,21 @@ export class FastComponent implements OnInit {
 
   questions: Array<Question>;
 
-  constructor(private quizzService: QuizzService) { }
+  registrationForm = this.fb.group({
+    cityName: [''],
+    pays:['']
+  });
+
+  City: any = ['Florida', 'South Dakota', 'Tennessee', 'Michigan']
+  paysList: any = ['France', 'Usa', 'angletterre']
+
+  
+
+  constructor(private quizzService: QuizzService,private fb: FormBuilder) { }
 
   ngOnInit() {
     this.getFastQuestions();
+    
   }
   
   getFastQuestions(){
@@ -45,6 +58,17 @@ export class FastComponent implements OnInit {
       q.isGoodAnswer = false;
       q.result = "Désolé la bonne reponse est "+q.correct_answer;
     }
+  }
+
+  onSubmit() {
+    console.log(this.registrationForm.value);
+    
+  }
+
+  changeCity(e) {
+    this.registrationForm.get("cityName").setValue(e.target.value, {
+      onlySelf: true
+    })
   }
   
 }
