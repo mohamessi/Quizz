@@ -13,7 +13,7 @@ export class PersonalizedComponent implements OnInit {
   ngOnInit() {
   }
 
-  generateQuizz()
+  getPersonalizedQuizz()
   {
   
   }
