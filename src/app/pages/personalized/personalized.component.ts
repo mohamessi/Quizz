@@ -8,6 +8,10 @@ import { QuizzService } from 'src/app/services/quizz.service';
 })
 export class PersonalizedComponent implements OnInit {
 
+  nbrQuestions: number;
+  difficulty: string;
+  type: string;
+
   constructor(private quizzService: QuizzService) { }
 
   ngOnInit() {
@@ -18,7 +22,7 @@ export class PersonalizedComponent implements OnInit {
   
   }
 
-  displayElemForm()
+  onSubmit()
   {}
 
 }
