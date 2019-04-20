@@ -7,12 +7,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FastComponent } from './pages/fast/fast.component';
+import { PersonalizedComponent } from './pages/personalized/personalized.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    FastComponent
+    FastComponent,
+    PersonalizedComponent
   ],
   imports: [
     BrowserModule,
