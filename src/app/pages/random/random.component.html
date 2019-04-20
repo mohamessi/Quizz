@@ -1,0 +1,15 @@
+<ul class="list-group list-group-flush">
+  <li class="list-group-item" *ngFor="let q of questions">{{q.question}}
+    <br>
+    <button class="btn btn-primary customButton" *ngFor="let answer of q.incorrect_answers" (click)="checkResponse(q,answer)">{{answer}}</button>
+
+    <div *ngIf="q.result">
+        <div class="alert alert-success" role="alert" *ngIf="q.isGoodAnswer">
+            {{q.result}}
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="!q.isGoodAnswer" >
+            {{q.result}}
+          </div>
+    </div>
+  </li>
+</ul>

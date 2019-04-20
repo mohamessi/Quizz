@@ -17,5 +17,12 @@ export class QuizzService {
     return this.http.get<TriviaResponse>(this.url);
   }
 
+  getRandomQuestions(amount,category,difficulty,type){
+    let urlRand = 'https://opentdb.com/api.php?amount=16&category=15&difficulty=medium&type=multiple'
+      let url2 =  'https://opentdb.com/api.php?amount='+amount+'&category='+category+'&difficulty='+difficulty+'&type='+type;
+      console.log(url2);
+      return this.http.get<TriviaResponse>(url2) ;
+    
+  }
 
 }
