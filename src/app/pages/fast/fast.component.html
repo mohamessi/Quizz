@@ -1,15 +1,32 @@
+<!-- Form starts -->
+<form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+
+  <select class="custom-select" formControlName="cityName" (change)="changeCity($event)">
+    <option value="" disabled>Choose your city</option>
+    <option *ngFor="let city of City" [ngValue]="city">{{city}}</option>
+  </select>
+
+  <select class="custom-select" formControlName="pays" (change)="changeCity($event)">
+      <option value="" disabled>Choose your counbtry</option>
+      <option *ngFor="let city of paysList" [ngValue]="city">{{city}}</option>
+    </select>
+
+  <button type="submit">Submit</button>
+</form><!-- Form ends -->
+
+
 <ul class="list-group list-group-flush">
   <li class="list-group-item" *ngFor="let q of questions">{{q.question}}
     <br>
     <button class="btn btn-primary customButton" *ngFor="let answer of q.incorrect_answers" (click)="checkResponse(q,answer)">{{answer}}</button>
 
     <div *ngIf="q.result">
-        <div class="alert alert-success" role="alert" *ngIf="q.isGoodAnswer">
-            {{q.result}}
-          </div>
-          <div class="alert alert-danger" role="alert" *ngIf="!q.isGoodAnswer" >
-            {{q.result}}
-          </div>
+      <div class="alert alert-success" role="alert" *ngIf="q.isGoodAnswer">
+        {{q.result}}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="!q.isGoodAnswer">
+        {{q.result}}
+      </div>
     </div>
   </li>
 
