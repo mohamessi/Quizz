@@ -1,0 +1,12 @@
+  {{question.question}}
+  <br>
+  <button class="btn btn-primary customButton" *ngFor="let answer of question.incorrect_answers" (click)="checkResponse(answer)">{{answer}}
+  </button>
+  <div *ngIf="question.result">
+    <div class="alert alert-success" role="alert" *ngIf="question.isGoodAnswer">
+      {{question.result}}
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="!question.isGoodAnswer">
+      {{question.result}}
+    </div>
+  </div>
