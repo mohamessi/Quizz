@@ -1,32 +1,58 @@
 <h3>
   Personalize your test
 </h3>
-<form (ngSubmit)="onSubmit" class="quizzForm" #qf="ngForm">
-  <div class="form-group col-md-4">
-      <label for="amount">Number of questions</label>
-      <input type="number" name="amount" id="amount" class="form-control" min="1" max="50" value="10" [(ngModel)]="nbrQuestions">
-    </div>
-  
-  <div class="form-group col-md-4">
-      <label for="difficulty">Difficulty</label>
-      <select name="difficulty" class="form-control" [(ngModel)]="difficulty">
-        <option selected>Choose...</option>
-        <option value="any">Any</option>
-        <option value="easy">Easy</option>
-        <option value="medium">Medium</option>
-        <option value="hard">Hard</option>
-      </select>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <form (ngSubmit)="getPersonalizedQuestions(qf)" class="quizzForm" #qf="ngForm">
+      <div class="form-group col-md-4">
+        <label for="amount">Number of questions</label>
+        <input type="number" name="amount" id="amount" class="form-control" min="1" max="50" [ngModel]="defaultAmount"
+          required>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="difficulty">Difficulty</label>
+        <select name="difficulty" class="form-control" ngModel required>
+          <option value="" selected>Choose...</option>
+          <option value="any">Any Difficulty</option>
+          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
+          <option value="hard">Hard</option>
+        </select>
+      </div>
+
+      <div class="form-group col-md-4">
+        <label for="type">Type</label>
+        <select name="type" class="form-control" ngModel required>
+          <option value="" selected>Choose...</option>
+          <option value="any">Any Type</option>
+          <option value="multiple">Multiple Choice</option>
+          <option value="boolean">True / False</option>
+        </select>
+      </div>
+      
+      <div class="form-group col-md-4">
+        <button type="submit" class="btn btn-primary" [disabled]="!qf.valid">Start the test!</button>
+      </div>
+    </form>
   </div>
-  
-  <div class="form-group col-md-4">
-      <label for="type">Type</label>
-      <select name="type" class="form-control" [(ngModel)]="type">
-        <option selected>Choose...</option>
-        <option value="any">Any Type</option>
-        <option value="multiple">Multiple Choice</option>
-        <option value="boolean">True / False</option>
-      </select>
-  </div>
-  
-  <button type="submit" class="btn btn-primary">start the test!</button>
-</form>
+</div>
+
+<div class="row">
+  <ul class="list-group">
+    <li class="list-group-item" *ngFor="let q of questions; let i = index">
+      <p><strong>{{ i+1 }}</strong> {{ q.question }}</p>
+      <button class="btn btn-primary" *ngFor="let answer of q.incorrect_answers"(click)="checkAnswer(q, answer)">{{ answer }}</button>
+      
+      <div *ngIf="q.result">
+        <div class="alert alert-success" role="alert" *ngIf="q.isGoodAnswer">
+          <p>{{ q.result }}</p>
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="!q.isGoodAnswer">
+            <p>{{ q.result }}</p>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+</div>
