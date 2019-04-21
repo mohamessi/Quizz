@@ -11,13 +11,17 @@ import { Question } from 'src/app/models/question';
 })
 export class PersonalizedComponent implements OnInit, OnDestroy {
 
-  defaultAmount = 10;  
+  defaultAmount: number;
+  difficulty: string;  
   questions: Array<Question>;
   personalizedSubscription: Subscription;
 
   constructor(private quizzService: QuizzService) { }
 
+  
   ngOnInit() {
+    this.defaultAmount = 20;
+    this.difficulty = "easy";
   }
 
   getPersonalizedQuestions(form: NgForm)

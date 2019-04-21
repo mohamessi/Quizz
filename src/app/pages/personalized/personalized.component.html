@@ -12,8 +12,8 @@
 
       <div class="form-group col-md-4">
         <label for="difficulty">Difficulty</label>
-        <select name="difficulty" class="form-control" ngModel required>
-          <option value="" selected>Choose...</option>
+        <select name="difficulty" class="form-control" [ngModel]="difficulty" required>
+          
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
