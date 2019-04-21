@@ -12,8 +12,7 @@
 
       <div class="form-group col-md-4">
         <label for="difficulty">Difficulty</label>
-        <select name="difficulty" class="form-control" ngModel required>
-          <option value="" selected>Choose...</option>
+        <select name="difficulty" class="form-control" [ngModel]="defaultChoise" required>
           <option value="any">Any Difficulty</option>
           <option value="easy">Easy</option>
           <option value="medium">Medium</option>
@@ -23,14 +22,13 @@
 
       <div class="form-group col-md-4">
         <label for="type">Type</label>
-        <select name="type" class="form-control" ngModel required>
-          <option value="" selected>Choose...</option>
+        <select name="type" class="form-control" [ngModel]="defaultChoise" required>
           <option value="any">Any Type</option>
           <option value="multiple">Multiple Choice</option>
           <option value="boolean">True / False</option>
         </select>
       </div>
-      
+
       <div class="form-group col-md-4">
         <button type="submit" class="btn btn-primary" [disabled]="!qf.valid">Start the test!</button>
       </div>
@@ -42,17 +40,22 @@
   <ul class="list-group">
     <li class="list-group-item" *ngFor="let q of questions; let i = index">
       <p><strong>{{ i+1 }}</strong> {{ q.question }}</p>
-      <button class="btn btn-primary" *ngFor="let answer of q.incorrect_answers"(click)="checkAnswer(q, answer)">{{ answer }}</button>
-      
+      <button type="button" class="btn btn-primary" *ngFor="let answer of q.incorrect_answers"
+        (click)="checkAnswer(q, answer)">{{ answer }}</button>
+
       <div *ngIf="q.result">
         <div class="alert alert-success" role="alert" *ngIf="q.isGoodAnswer">
           <p>{{ q.result }}</p>
         </div>
         <div class="alert alert-danger" role="alert" *ngIf="!q.isGoodAnswer">
-            <p>{{ q.result }}</p>
+          <p>{{ q.result }}</p>
         </div>
       </div>
     </li>
+    <div class="btn-init-qst" *ngIf="questions">
+        <button type="button" class="btn btn-primary btn-lg" (click)="initializeQuestionnaire()">
+          Initializethe the questionnaire
+        </button>
+    </div>
   </ul>
-
 </div>

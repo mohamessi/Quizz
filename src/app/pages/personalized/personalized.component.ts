@@ -11,13 +11,16 @@ import { Question } from 'src/app/models/question';
 })
 export class PersonalizedComponent implements OnInit, OnDestroy {
 
-  defaultAmount = 10;  
+  defaultAmount: number;
+  defaultChoise: string;
   questions: Array<Question>;
   personalizedSubscription: Subscription;
 
   constructor(private quizzService: QuizzService) { }
 
   ngOnInit() {
+    this.defaultAmount = 10;
+    this.defaultChoise = "any";
   }
 
   getPersonalizedQuestions(form: NgForm)
@@ -58,6 +61,16 @@ export class PersonalizedComponent implements OnInit, OnDestroy {
       q.result = "Mauvaise réponse";
       q.isGoodAnswer = false;
     }
+  }
+
+  initializeQuestionnaire()
+  {
+    console.log('Questionnaire inisialize');
+    this.questions.forEach(
+      q => {
+        q.result = '';
+      }
+    );
   }
 
   ngOnDestroy()
