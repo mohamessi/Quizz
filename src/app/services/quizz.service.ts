@@ -22,9 +22,9 @@ export class QuizzService {
   {
     var url: string = this.root + '?amount=' + amount;
 
-    if (difficulty !== "any")
-      url += "&difficulty=" + difficulty;
-    if (type !== "any")
+    if (difficulty !== 'any')
+      url += '&difficulty=' + difficulty;
+    if (type !== 'any')
       url += '&type=' + type;
     
     return this.http.get<TriviaResponse>(url);

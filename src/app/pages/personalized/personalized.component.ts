@@ -1,39 +1,76 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { QuizzService } from 'src/app/services/quizz.service';
 import { Subscription } from 'rxjs';
-import { NgForm } from '@angular/forms';
+
 import { Question } from 'src/app/models/question';
+import { ParametersService } from 'src/app/services/parameters.service';
 
 @Component({
   selector: 'app-personalized',
   templateUrl: './personalized.component.html',
   styleUrls: ['./personalized.component.scss']
 })
-export class PersonalizedComponent implements OnInit, OnDestroy {
 
-  defaultAmount: number;
-  defaultChoise: string;
+export class PersonalizedComponent implements OnInit, OnDestroy
+{
   questions: Array<Question>;
+  
+  difficulties: Array<string>;
+  types: Array<string>;
+  defaultAmount: number;
+  defaultDifficulty: string;
+  defaultType: string;
+  
   personalizedSubscription: Subscription;
+  parametersSubscription: Subscription;
 
-  constructor(private quizzService: QuizzService) { }
+  personalizedForm: FormGroup;
 
-  ngOnInit() {
-    this.defaultAmount = 10;
-    this.defaultChoise = "any";
+  constructor(private quizzService: QuizzService, private parametresService: ParametersService, 
+              private formBuilder: FormBuilder) {}
+
+  ngOnInit()
+  {
+    this.subscribeParameters();
+    this.parametresService.emitParameters();
+    this.initForm();
   }
 
-  getPersonalizedQuestions(form: NgForm)
+  initForm()
   {
-    const amount = form.value['amount'];
-    const difficulty = form.value['difficulty'];
-    const type = form.value['type'];
+    this.personalizedForm = this.formBuilder.group({
+      amount: [this.defaultAmount, [Validators.required, Validators.min(1), Validators.max(50)]],
+      difficulty: [this.defaultDifficulty, Validators.required],
+      type: [this.defaultType, Validators.required]
+    });
+  }
+
+  subscribeParameters()
+  {
+    this.parametersSubscription =    
+    this.parametresService.parametersSubject.subscribe(
+      data => {
+        this.difficulties = data.difficulties;
+        this.types = data.types;
+        this.defaultAmount = data.defaultAmount;
+        this.defaultDifficulty = data.defaultDifficulty;
+        this.defaultType = data.defaultType;
+      }
+    );
+  }
+  
+  getPersonalizedQuestions()
+  {
+    const amount = this.personalizedForm.value['amount'];
+    const difficulty = this.personalizedForm.value['difficulty'];
+    const type = this.personalizedForm.value['type'];
 
     this.personalizedSubscription = 
     this.quizzService.getPersonalizedQuizz(amount, difficulty, type).subscribe(
-      response => {
-        console.log("response :", response);
-        this.questions = response.results;
+      data => {
+        console.log('data :', data);
+        this.questions = data.results;
         this.questions.forEach(
           q => {
             q.incorrect_answers.push(q.correct_answer);
@@ -42,7 +79,7 @@ export class PersonalizedComponent implements OnInit, OnDestroy {
         );
       },
       err => {
-        console.log("error :", err)
+        console.log('error :', err)
       }
     );
   }
@@ -51,14 +88,14 @@ export class PersonalizedComponent implements OnInit, OnDestroy {
   {
     if (answer === q.correct_answer)
     {
-      console.log("Bonne réponse");
-      q.result = "Bonne réponse";
+      q.result = 'Bonne réponse';
+      console.log(q.result);
       q.isGoodAnswer = true;
     }
     else
     {
-      console.log("Mauvaise réponse");;      
-      q.result = "Mauvaise réponse";
+      q.result = 'Mauvaise réponse';
+      console.log(q.result);
       q.isGoodAnswer = false;
     }
   }
@@ -76,5 +113,6 @@ export class PersonalizedComponent implements OnInit, OnDestroy {
   ngOnDestroy()
   {
     this.personalizedSubscription.unsubscribe();
+    this.parametersSubscription.unsubscribe();
   }
 }
