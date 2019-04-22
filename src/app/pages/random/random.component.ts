@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizzService } from 'src/app/services/quizz.service';
 import { Question } from '../../models/question';
-import { TriviaResponse } from 'src/app/responses/trivia-response';
 
 
 @Component({
@@ -19,21 +18,21 @@ export class RandomComponent implements OnInit {
   questions: Array<Question>;
 
   ngOnInit() {
-    this.getRandomQuestions() ;
+    this.getRandomQuestions();
   }
 
 
 
 
-  getRandomQuestions(){
+  getRandomQuestions() {
 
-     let am = Math.floor(Math.random()*(50-10+1)+10) ;
-     let cat = Math.floor(Math.random()*(30+1))   ;
-     let diff =  this.difficulty[Math.floor(Math.random()*(2+1))] ;
-     let tp = this.type[Math.floor(Math.random()*(2))] ;
-     this.quizService.getRandomQuestions(am,cat,diff,tp).subscribe(
+    let am = Math.floor(Math.random() * (50 - 10 + 1) + 10);
+    let cat = Math.floor(Math.random() * (30 + 1));
+    let diff = this.difficulty[Math.floor(Math.random() * (2 + 1))];
+    let tp = this.type[Math.floor(Math.random() * (2))];
+    this.quizService.getRandomQuestions(am, cat, diff, tp).subscribe(
       data => {
-        console.log("data : ",data);
+        console.log("data : ", data);
         this.questions = data.results;
         this.questions.forEach(e => {
           e.incorrect_answers.push(e.correct_answer);
@@ -42,10 +41,16 @@ export class RandomComponent implements OnInit {
 
       },
       err => {
-        console.log("err : ",err);
+        console.log("err : ", err);
       }
     )
 
-}
- 
+  }
+  //**** Rechargement de la page pour afficher les questions***/
+  reloadPage() {
+
+    setTimeout(() => { window.location.reload(); }
+      , 500)
+  }
+
 }

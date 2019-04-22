@@ -1,6 +1,6 @@
 <ul class="list-group list-group-flush">
   <div *ngIf="questions.length===0">
-    <button type="button" class="btn btn-primary btn-lg btn-block" routerLink=''>Pas de Questions pour cette section refaire une autre tentative</button>
+    <button type="button" class="btn btn-primary btn-lg btn-block" (click)="reloadPage()">Pas de Questions pour cette section refaire une autre tentative</button>
   </div>
   <li class="list-group-item" *ngFor="let q of questions">{{q.question}}
     <br>
