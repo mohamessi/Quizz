@@ -16,7 +16,7 @@ export class FastComponent implements OnInit {
   ngOnInit() {
     this.getFastQuestions();
   }
-  
+
   getFastQuestions(){
     this.quizzService.getFastQuizz(10).subscribe(
       data => {
@@ -26,7 +26,7 @@ export class FastComponent implements OnInit {
           e.incorrect_answers.push(e.correct_answer);
           e.incorrect_answers.sort();
         });
-        
+
       },
       err => {
         console.log("err : ",err);
@@ -34,17 +34,4 @@ export class FastComponent implements OnInit {
     )
   }
 
-  checkResponse(q: Question, answer: string){
-    if( answer === q.correct_answer){
-      console.log('bonne response');
-      q.isGoodAnswer = true;
-      q.result = "Bravo tu as trouvé la bonne reponse";
-    }
-    else{
-      console.log('mauvaise reponse');
-      q.isGoodAnswer = false;
-      q.result = "Désolé la bonne reponse est "+q.correct_answer;
-    }
-  }
-  
 }

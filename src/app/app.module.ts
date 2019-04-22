@@ -8,13 +8,15 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { FastComponent } from './pages/fast/fast.component';
 import { RandomComponent } from './pages/random/random.component';
+import { QuestionsListComponent } from './pages/questions-list/questions-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     FastComponent,
-    RandomComponent
+    RandomComponent,
+    QuestionsListComponent
   ],
   imports: [
     BrowserModule,
