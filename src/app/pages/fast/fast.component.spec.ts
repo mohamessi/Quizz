@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+
 import { FastComponent } from './fast.component';
 
 describe('FastComponent', () => {
@@ -8,7 +9,7 @@ describe('FastComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FastComponent ]
+
     })
     .compileComponents();
   }));
@@ -21,5 +22,9 @@ describe('FastComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should have 10 questions`, () => {
+    expect(component.numberOfQuestions).toEqual(10);
   });
 });
