@@ -10,12 +10,17 @@ import { TriviaResponse} from '../responses/trivia-response';
 export class QuizzService {
 
   url: string = 'https://opentdb.com/api.php?amount=10';
-  //url: string = 'https://raw.githubusercontent.com/mohamessi/Savana/master/QuestionAnswer.json';
+  urlPersonalized: string = 'https://opentdb.com/api.php';
+    
   constructor(private http: HttpClient) { }
 
   getFastQuizz(nbQuestions: number){
     return this.http.get<TriviaResponse>(this.url);
   }
 
-
+  getPersonalizedQuizz(nQuestion: number, difficulty: string, type:string)
+  {
+    return this.http.get<TriviaResponse>(this.urlPersonalized + '?amount=' + nQuestion + 
+                                        '&difficulty=' + difficulty + '&type=' + type);
+  }
 }
