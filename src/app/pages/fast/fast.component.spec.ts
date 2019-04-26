@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule,FormsModule } from '@angular/forms';
 import { HttpClientTestingModule,HttpTestingController } from '@angular/common/http/testing';
+
 import { FastComponent } from './fast.component';
 
 describe('FastComponent', () => {
@@ -11,6 +12,7 @@ describe('FastComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ FastComponent ],
       imports: [HttpClientTestingModule, ReactiveFormsModule,FormsModule]
+
     })
     .compileComponents();
   }));
