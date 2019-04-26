@@ -12,6 +12,8 @@ import { FormBuilder, Validators } from "@angular/forms";
 export class FastComponent implements OnInit {
 
   questions: Array<Question>;
+  numberOfQuestions: number;
+  
 
   registrationForm = this.fb.group({
     cityName: [''],
@@ -26,6 +28,7 @@ export class FastComponent implements OnInit {
   constructor(private quizzService: QuizzService,private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.numberOfQuestions = 10;
     this.getFastQuestions();
     
   }
@@ -68,7 +71,11 @@ export class FastComponent implements OnInit {
   changeCity(e) {
     this.registrationForm.get("cityName").setValue(e.target.value, {
       onlySelf: true
-    })
+    });
+  }
+
+  getNumbersOfQuestions(): number{
+    return this.numberOfQuestions;
   }
   
 }
