@@ -7,10 +7,13 @@ import { Question } from '../../models/question';
   templateUrl: './fast.component.html',
   styleUrls: ['./fast.component.scss']
 })
+
+
 export class FastComponent implements OnInit {
 
   questions: Array<Question>;
 
+  
   constructor(private quizzService: QuizzService) { }
 
   ngOnInit() {
@@ -22,9 +25,11 @@ export class FastComponent implements OnInit {
       data => {
         console.log("data : ",data);
         this.questions = data.results;
+        
         this.questions.forEach(e => {
           e.incorrect_answers.push(e.correct_answer);
           e.incorrect_answers.sort();
+          
         });
         
       },
@@ -33,6 +38,7 @@ export class FastComponent implements OnInit {
       }
     )
   }
+
 
   checkResponse(q: Question, answer: string){
     if( answer === q.correct_answer){

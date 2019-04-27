@@ -29,4 +29,10 @@ export class ParametersService {
   {
     this.parametersSubject.next(this.parameters);
   }
+
+  getDifficulties(){
+    return this.parameters.difficulties;
+  }
+
+  // create multiple methods for each parameters
 }

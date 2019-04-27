@@ -34,18 +34,39 @@ export class PersonalizedComponent implements OnInit, OnDestroy
   {
     this.subscribeParameters();
     this.parametresService.emitParameters();
-    this.initForm();
+    this.defaultAmount = 10
+    this.initForm(this.defaultAmount);
   }
 
-  initForm()
+  // user pure function
+  initForm(defaultAmount)
   {
     this.personalizedForm = this.formBuilder.group({
-      amount: [this.defaultAmount, [Validators.required, Validators.min(1), Validators.max(50)]],
+      amount: [defaultAmount, [Validators.required, Validators.min(1), Validators.max(50)]],
       difficulty: [this.defaultDifficulty, Validators.required],
       type: [this.defaultType, Validators.required]
     });
   }
 
+  // function non pure
+  test(){
+    let halfMonth = new Date(2019,4,15);
+    let now = new Date();
+    if(now.getTime() > halfMonth.getTime()){
+      return 1;
+    }
+    return 2;
+  }
+
+  // function pure
+  test2(date1: Date, date2: Date){
+    if(date1.getTime() > date2.getTime()){
+      return 1;
+    }
+    return 2;
+  }
+
+  // change method name to init
   subscribeParameters()
   {
     this.parametersSubscription =    
