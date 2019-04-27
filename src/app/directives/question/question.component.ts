@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Question } from '../../models/question';
 
 @Component({
@@ -9,6 +9,8 @@ import { Question } from '../../models/question';
 export class QuestionComponent implements OnInit {
 
   @Input() question: Question;
+
+  @Output() buttonClick = new EventEmitter();
 
   constructor() { }
 
@@ -26,6 +28,10 @@ export class QuestionComponent implements OnInit {
       this.question.isGoodAnswer = false;
       this.question.result = "Désolé la bonne reponse est "+this.question.correct_answer;
     }
+  }
+
+  onButtonClick(){
+    this.buttonClick.emit('Button was clicked');
   }
 
 }

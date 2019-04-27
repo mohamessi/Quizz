@@ -17,7 +17,7 @@
 
 <ul class="list-group list-group-flush">
     <li class="list-group-item" *ngFor="let q of questions">
-        <app-question  [question]="q" ></app-question>
+        <app-question  [question]="q" (buttonClick)="buttonClick($event)" ></app-question>
     </li>
 </ul>
 
